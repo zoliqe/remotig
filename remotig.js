@@ -8,11 +8,8 @@ const poweroffDelay = 5 // delay (in sec) to poweroff tcvr after client disconne
 export class RemotigController {
 
 	#local
-
 	#remote
-
 	#kredence
-
 	// #connectors
 
 	timeout = 30
@@ -37,6 +34,7 @@ export class RemotigController {
 	async _onControlOpen() {
 		await this.#local.poweron()
 		this._watchdogStart()
+		document.getElementById('status').innerHTML += `[${Date()}] OPENED<br/>`
 	}
 
 	async _onControlClose() {
@@ -47,6 +45,7 @@ export class RemotigController {
 		
 		await delay(poweroffDelay) // delayed poweroff
 		this.#local.poweroff()
+		document.getElementById('status').innerHTML += `[${Date()}] CLOSED<br/>`
 	}
 
 	_onControlMessage(event) {
