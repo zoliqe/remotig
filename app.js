@@ -25,7 +25,7 @@ export class RemotigApp {
 
 		window.log = (text, level) => {
 			const prev = document.getElementById('status').innerHTML
-			document.getElementById('status').innerHTML = `${Date().toJSON()}: [${level || 'INFO'}] ${text}<br/>` + prev
+			document.getElementById('status').innerHTML = `${new Date().toJSON()}: [${level || 'INFO'}] ${text}<br/>` + prev
 		}
 	}
 
