@@ -22,6 +22,11 @@ export class RemotigApp {
 				this.remote.disconnect()
 			}
 		}
+
+		window.log = (text, level) => {
+			const prev = document.getElementById('status').innerHTML
+			document.getElementById('status').innerHTML = `${Date().toJSON()}: [${level || 'INFO'}] ${text}<br/>` + prev
+		}
 	}
 
 	async initialize() {
@@ -113,7 +118,7 @@ export class RemotigApp {
 		document.getElementById('activateBtn').hidden = true
 		const connectors = Object.values(this.connectors)
 		await this.remote.connect(connectors)
-		document.getElementById('status').innerHTML += `[${Date()}] ACTIVE<br/>`
+		log('ACTIVE')
 	}
 
 }

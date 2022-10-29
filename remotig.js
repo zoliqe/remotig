@@ -10,6 +10,7 @@ export class RemotigController {
 	#local
 	#remote
 	#kredence
+	#operator
 	// #connectors
 
 	timeout = 30
@@ -25,6 +26,7 @@ export class RemotigController {
 		this.#remote.onControlOpen = () => this._onControlOpen()
 		this.#remote.onControlClose = () => this._onControlClose()
 		this.#remote.onControlMessage = e => this._onControlMessage(e)
+		this.#remote.onoperator = op => this.#operator = op
 		// this.#remote.onTrack = e => this._onTrack(e)
 		// this.#remote.onRemoveTrack = e => this._onRemoveTrack(e)
 		// this.#remote.ondisconnect = () => this._onDisconnect()
@@ -34,7 +36,7 @@ export class RemotigController {
 	async _onControlOpen() {
 		await this.#local.poweron()
 		this._watchdogStart()
-		document.getElementById('status').innerHTML += `[${Date()}] OPENED<br/>`
+		log(`OPENED (${this.#operator})`)
 	}
 
 	async _onControlClose() {
@@ -45,7 +47,8 @@ export class RemotigController {
 		
 		await delay(poweroffDelay) // delayed poweroff
 		this.#local.poweroff()
-		document.getElementById('status').innerHTML += `[${Date()}] CLOSED<br/>`
+		log(`CLOSED (${this.#operator})`)
+		this.#operator = null
 	}
 
 	_onControlMessage(event) {
