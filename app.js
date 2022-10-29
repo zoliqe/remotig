@@ -4,6 +4,7 @@
 import { Transceiver } from 'https://zoliqe.github.io/hamium/src/tcvr.js'
 import { get as resolveConnector } from 'https://zoliqe.github.io/hamium/src/connector.js'
 import { TcvrController } from 'https://zoliqe.github.io/hamium/src/controller.js'
+import { RemotigController } from './remotig.js'
 
 export class RemotigApp {
 	constructor() {
@@ -53,12 +54,10 @@ export class RemotigApp {
 			await this.#resolveConnector(conns, connectorParams, 'pwr')
 		}
 
-
 		if (remote && remote.includes('@')) {
 			[this.kredence.rig, this.kredence.qth] = remote.trim().toLowerCase().split('@', 2)
 			this.remote = new TcvrController('remotig')
-			const ctlModule = await import('https://zoliqe.github.io/hamium/src/controllers/remotig.js')
-			this.remoteController = new ctlModule.RemotigController(this.remote, this.kredence)
+			this.remoteController = new RemotigController(this.remote, this.kredence)
 		} else {
 			alert('Remote connection (remote=) not defined or invalid!')
 		}
