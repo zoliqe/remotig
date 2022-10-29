@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Webceiver</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no" />
+  <meta name="Description" content="Smartceiver controlling app for hamradio transceivers.">
+  <link rel="manifest" href="./manifest.json">
+  <base href="/smartceiver/">
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      font-family: sans-serif;
+      background-color: #ededed;
+    }
+  </style>
+  <title>Smartceiver</title>
+</head>
+<body>
+  <script type="importmap">
+{
+	"imports": {
+		"lit-element": "./lib/lit-element/lit-element.js",
+		"lit-element/": "./lib/lit-element/",
+		"lit-html": "./lib/lit-html/lit-html.js",
+		"lit-html/": "./lib/lit-html/"
+	}
+}
+  </script>
+  
+	<script src="./lib/input-knob/input-knob-0.0.11.umd.js"></script>
+	<script src="https://zoliqe.github.io/hamium/src/interfaces/socket.io.js" async defer></script>
+  <script type="module" src="./src/controllers/ui.js"></script>
+
+  <smartceiver-app></smartceiver-app>
+
+</body>
+
+</html>
