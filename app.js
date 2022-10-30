@@ -87,6 +87,7 @@ export class RemotigApp {
 	async #resolveConnector(id, params, type) {
 		try {
 			const connector = await resolveConnector(id, params)
+			this.connectors[type] = connector
 			console.debug(`Resolved connector: id=${connector.id} params=${JSON.stringify(params)}`)
 			connector.init && await connector.init({
 				onready: async () => {
@@ -94,7 +95,6 @@ export class RemotigApp {
 					await this.switchPowerOn()
 				}
 			})
-			this.connectors[type] = connector
 		} catch (e) {
 			console.error(e)
 			throw e
