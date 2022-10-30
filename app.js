@@ -33,7 +33,7 @@ export class RemotigApp {
 		this.transceiver = new Transceiver()
 
 		await this.#initConnector()
-		window.tcvr = transceiver // for debugging purposes
+		window.tcvr = this.transceiver // for debugging purposes
 		window.uiCtlr = this.tcvr // for debugging purposes
 		window.remoteCtlr = this.remote // for debugging purposes
 
