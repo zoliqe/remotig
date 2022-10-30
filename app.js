@@ -54,12 +54,6 @@ export class RemotigApp {
 		const conns = this._params.get('connector') // TODO connector=remotig-serial,sercat
 		// const cat = this._params.get('cat')
 		const remote = this._params.get('remote')
-		// if (cat) {
-		// 	await this.#resolveConnector(cat, connectorParams, 'cat')
-		// }
-		if (conns) {
-			await this.#resolveConnector(conns, connectorParams, 'pwr')
-		}
 
 		if (remote && remote.includes('@')) {
 			[this.kredence.rig, this.kredence.qth] = remote.trim().toLowerCase().split('@', 2)
@@ -69,6 +63,12 @@ export class RemotigApp {
 			alert('Remote connection (remote=) not defined or invalid!')
 		}
 
+		// if (cat) {0
+		// 	await this.#resolveConnector(cat, connectorParams, 'cat')
+		// }
+		if (conns) {
+			await this.#resolveConnector(conns, connectorParams, 'pwr')
+		}
 
 		if (!Object.values(this.connectors).length) {
 			alert('No connector (connector=) defined!')
