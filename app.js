@@ -63,7 +63,7 @@ export class RemotigApp {
 			alert('Remote connection (remote=) not defined or invalid!')
 		}
 
-		// if (cat) {0
+		// if (cat) {
 		// 	await this.#resolveConnector(cat, connectorParams, 'cat')
 		// }
 		if (conns) {
@@ -90,9 +90,9 @@ export class RemotigApp {
 			this.connectors[type] = connector
 			console.debug(`Resolved connector: id=${connector.id} params=${JSON.stringify(params)}`)
 			connector.init && await connector.init({
-				onready: async () => {
+				onready: () => {
 					console.info('Instant poweron activated')
-					await this.switchPowerOn()
+					this.switchPowerOn()
 				}
 			})
 		} catch (e) {
