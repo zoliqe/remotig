@@ -30,14 +30,11 @@ export class RemotigApp {
 	}
 
 	async initialize() {
-		const transceiver = new Transceiver()
-		this.transceiver = transceiver
+		this.transceiver = new Transceiver()
 
 		await this.#initConnector()
 		window.tcvr = transceiver // for debugging purposes
 		window.uiCtlr = this.tcvr // for debugging purposes
-
-		this.remote.attachTo(transceiver)
 		window.remoteCtlr = this.remote // for debugging purposes
 
 		document.getElementById('activateBtn').onclick = () => this.switchPowerOn()
@@ -58,6 +55,7 @@ export class RemotigApp {
 		if (remote && remote.includes('@')) {
 			[this.kredence.rig, this.kredence.qth] = remote.trim().toLowerCase().split('@', 2)
 			this.remote = new TcvrController('remotig')
+			this.remote.attachTo(this.transceiver)
 			this.remoteController = new RemotigController(this.remote, this.kredence)
 		} else {
 			alert('Remote connection (remote=) not defined or invalid!')
@@ -90,9 +88,9 @@ export class RemotigApp {
 			this.connectors[type] = connector
 			console.debug(`Resolved connector: id=${connector.id} params=${JSON.stringify(params)}`)
 			connector.init && await connector.init({
-				onready: () => {
+				onready: async () => {
 					console.info('Instant poweron activated')
-					this.switchPowerOn()
+					await this.switchPowerOn()
 				}
 			})
 		} catch (e) {
