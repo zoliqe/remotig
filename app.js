@@ -39,6 +39,8 @@ export class RemotigApp {
 
 		this.remote.attachTo(transceiver)
 		window.remoteCtlr = this.remote // for debugging purposes
+
+		document.getElementById('activateBtn').onclick = () => this.switchPowerOn()
 	}
 
 	async #initConnector() {
